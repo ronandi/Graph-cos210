@@ -8,7 +8,6 @@ public class ALVertex<T1> implements Vertex<T1> {
 		this.data = data;
 		edges = new ArrayList<Edge>();
 	}
-
 	public T1 getElement() {
 		return data;
 	}
@@ -30,15 +29,12 @@ public class ALVertex<T1> implements Vertex<T1> {
 		}
 		return count;
 	}
-	
 	public int getInDegree() {
 		return inIncidentEdges().size();
 	}
-	
 	public int getOutDegree() {
 		return outIncidentEdges().size();
 	}
-	
 	public List<Edge> incidentEdges() {
 		return edges;
 	}
@@ -108,5 +104,12 @@ public class ALVertex<T1> implements Vertex<T1> {
 	}
     public void addEdge(Vertex v) {
 		edges.add(new ALEdge(this, v));	
+	}
+	public void addEdge(Edge e) {
+		edges.add(e);
+	}
+	public void removeEdge(Edge e) {
+		int a = edges.indexOf(e);
+		edges.remove(a);
 	}
 }

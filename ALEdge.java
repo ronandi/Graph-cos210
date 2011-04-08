@@ -5,7 +5,6 @@ public class ALEdge implements Edge {
 		source = s;
 		destination = d;
 	}
-	
 	//There should probably be better names for these...
     public Vertex getSource() {
 		return source;

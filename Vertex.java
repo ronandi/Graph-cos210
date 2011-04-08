@@ -15,4 +15,6 @@ public interface Vertex<T1> {
     public List outAdjacentVertices();
     public boolean areAdjacent(Vertex v);
     public void addEdge(Vertex v);
+    public void addEdge(Edge e);
+    public void removeEdge(Edge e);
 }
