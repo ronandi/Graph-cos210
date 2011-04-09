@@ -66,23 +66,23 @@ public class ALVertex<T1> implements Vertex<T1> {
 			}
 		return incidentList;
 	}
-    public Vertex opposite(Edge e) {
+    public Vertex<T1> opposite(Edge e) {
 		if (e.getSource() != this) {
 			return e.getDestination();
 		} else {
 			return e.getSource();
 		}
 	}
-    public List<Vertex> adjacentVertices() {
-		ArrayList<Vertex> adjList = new ArrayList<Vertex>();
+    public List<Vertex<T1>> adjacentVertices() {
+		ArrayList<Vertex<T1>> adjList = new ArrayList<Vertex<T1>>();
 		Iterator<Edge> iterator = edges.iterator();
 		while (iterator.hasNext()) {
 			adjList.add(opposite(iterator.next()));
 		}
 		return adjList;	
 	}
-    public List<Vertex> inAdjacentVertices() {
-		ArrayList<Vertex> inList = new ArrayList<Vertex>();
+    public List<Vertex<T1>> inAdjacentVertices() {
+		ArrayList<Vertex<T1>> inList = new ArrayList<Vertex<T1>>();
 		List<Edge> adjList = inIncidentEdges();
 		Iterator<Edge> iterator = adjList.iterator();
 		while (iterator.hasNext()) {
@@ -90,8 +90,8 @@ public class ALVertex<T1> implements Vertex<T1> {
 		}
 		return inList;
 	}
-    public List<Vertex> outAdjacentVertices() {
-		ArrayList<Vertex> outList = new ArrayList<Vertex>();
+    public List<Vertex<T1>> outAdjacentVertices() {
+		ArrayList<Vertex<T1>> outList = new ArrayList<Vertex<T1>>();
 		List<Edge> adjList = outIncidentEdges();
 		Iterator<Edge> iterator = adjList.iterator();
 		while (iterator.hasNext()) {
@@ -99,7 +99,7 @@ public class ALVertex<T1> implements Vertex<T1> {
 		}
 		return outList;
 	}
-    public boolean areAdjacent(Vertex v) {
+    public boolean isAdjacent(Vertex v) {
 		return adjacentVertices().contains(v);
 	}
     public void addEdge(Vertex v) {

@@ -12,9 +12,9 @@ public class ALGraph<T1> implements Graph<T1> {
 	}
 	public boolean isEmpty() {
 		if (this.size() == 0) {
-		return true;
+			return true;
 		} else {
-		return false;
+			return false;
 		}
 	}
 	public boolean isDirected(Edge e) {
@@ -35,7 +35,7 @@ public class ALGraph<T1> implements Graph<T1> {
 		return vertexList.size();
 	}
 	public int numEdges() {
-		return vertexList.size() - 1;
+		return this.edges().size();
 	}
 	public List<Vertex<T1>> vertices() {
 		return vertexList;

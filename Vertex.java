@@ -9,11 +9,11 @@ public interface Vertex<T1> {
     public List<Edge> incidentEdges();
     public List<Edge> inIncidentEdges();
     public List<Edge> outIncidentEdges();
-    public Vertex opposite(Edge e);
-    public List adjacentVertices();
-    public List inAdjacentVertices();
-    public List outAdjacentVertices();
-    public boolean areAdjacent(Vertex v);
+    public Vertex<T1> opposite(Edge e);
+    public List<Vertex<T1>> adjacentVertices();
+    public List<Vertex<T1>> inAdjacentVertices();
+    public List<Vertex<T1>> outAdjacentVertices();
+    public boolean isAdjacent(Vertex v);
     public void addEdge(Vertex v);
     public void addEdge(Edge e);
     public void removeEdge(Edge e);
