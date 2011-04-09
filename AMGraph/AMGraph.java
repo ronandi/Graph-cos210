@@ -9,28 +9,34 @@ public class AMGraph<T1> implements Graph<T1> {
 		matrix = new ArrayList<ArrayList<Edge>>();
 	}
 	public int size() {
-		return size;
+		this.size = this.vertexList.size() + this.edges().size();
+		return this.size;
 	}
     public boolean isEmpty() {
     	return size() == 0;
     }
     public boolean isDirected(Edge e) {
-    	return false;
+    	return e instanceof DirectedEdge;
     }
     public boolean isWeighted(Edge e) {
-    	return false;
+    	return e instanceof WeightedEdge;
     }
     public List<T1> elements() {
-    	return null;
+    	Iterator<Vertex<T1>> iter = vertexList.iterator();
+		ArrayList<T1> elements = new ArrayList<T1>();
+		while (iter.hasNext()) {
+			elements.add(iter.next().getElement());
+		}
+		return elements;
     }
     public int numVertices() {
-    	return 0;
+    	return this.vertexList.size();
     }
     public int numEdges() {
-    	return 0;
+    	return this.edges().size();
     }
     public List<Vertex<T1>> vertices() {
-    	return null;
+    	return vertexList;
     }
     public List<? extends Edge> edges() {
     	return null;
@@ -57,7 +63,10 @@ public class AMGraph<T1> implements Graph<T1> {
     	
     }
     public Vertex[] endVertices(Edge e) {
-    	return new Vertex[2];
+    	Vertex[] ends = new Vertex[2];
+		ends[0] = e.getSource();
+		ends[1] = e.getDestination();
+		return ends;
     }
     public void makeUndirected(Edge e) {
     	
@@ -74,8 +83,8 @@ public class AMGraph<T1> implements Graph<T1> {
     public void insertDirectedWeightedEdge (Vertex<T1> V, Vertex<T1> W, double Cost) {
     	
     }
-    public void swap(Vertex<T1> V, Vertex<T1> W) {
-    	
+    public void swap(Vertex<T1> v, Vertex<T1> w) {
+    	w.replaceElement(v.replaceElement(w.getElement()));
     }
     public void positions() {
     	
