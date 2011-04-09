@@ -21,6 +21,7 @@ public class ALVertex<T1> implements Vertex<T1> {
 		Iterator<Edge> iterator = edges.iterator();
 		while (iterator.hasNext()) {
 			Edge e = iterator.next();
+			System.out.println(e instanceof DirectedEdge);
 			if (!(e instanceof DirectedEdge)) {
 				count += 2;
 			} else {

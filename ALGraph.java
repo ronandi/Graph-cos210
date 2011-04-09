@@ -32,7 +32,7 @@ public class ALGraph<T1> implements Graph<T1> {
 		return elements;
 	}
 	public int numVertices() {
-		return vertexList.size();
+		return this.vertexList.size();
 	}
 	public int numEdges() {
 		return this.edges().size();
@@ -40,7 +40,7 @@ public class ALGraph<T1> implements Graph<T1> {
 	public List<Vertex<T1>> vertices() {
 		return vertexList;
 	}
-	public void swap(Vertex<T1> v, Vertex<T1> w){
+	public void swap(Vertex v, Vertex w){
 		w.replaceElement(v.replaceElement(w.getElement()));
 	}
 	public Vertex[] endVertices(Edge e) {
@@ -73,6 +73,10 @@ public class ALGraph<T1> implements Graph<T1> {
 		ALDirectedEdge myEdge = new ALDirectedEdge(V, W);
 		return myEdge;
 	}
+	public Edge vendDirectedWeightedEdge (Vertex<T1> V, Vertex<T1> W, double Cost) {
+		ALDirectedWeightedEdge myEdge = new ALDirectedWeightedEdge(V, W, Cost);
+		return myEdge;
+	}
 	public Vertex<T1> vendVertex(T1 o) {
 		ALVertex<T1> myVertex = new ALVertex<T1>(o);
 		return myVertex;
@@ -97,6 +101,13 @@ public class ALGraph<T1> implements Graph<T1> {
 		int a = vertexList.indexOf(V);
 		int b = vertexList.indexOf(W);
 		Edge myEdge = vendDirectedEdge(V, W);
+		vertexList.get(a).addEdge(myEdge);
+		vertexList.get(b).addEdge(myEdge);
+	}
+	public void insertDirectedWeightedEdge (Vertex<T1> V, Vertex<T1> W, double Cost){
+		int a = vertexList.indexOf(V);
+		int b = vertexList.indexOf(W);
+		Edge myEdge = vendWeightedEdge(V, W, Cost);
 		vertexList.get(a).addEdge(myEdge);
 		vertexList.get(b).addEdge(myEdge);
 	}

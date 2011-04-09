@@ -18,4 +18,8 @@ public class ALEdge implements Edge {
 	public void setSource(Vertex s) {
 		source = s;
 	}
+	public String toString() {
+		String s = source.getElement() + "------" + destination.getElement();
+		return s;
+	}
 }
