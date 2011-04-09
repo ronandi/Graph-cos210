@@ -25,4 +25,9 @@ public class ALDirectedWeightedEdge extends ALEdge implements WeightedEdge, Dire
 		setSource(s);
 		setDestination(d);
 	}
+	@Override
+	public String toString() {
+		String s = getSource().getElement() + " --- " + getWeight() + " ---> " + getDestination().getElement();
+		return s;
+	}
 }

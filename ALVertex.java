@@ -113,4 +113,7 @@ public class ALVertex<T1> implements Vertex<T1> {
 		int a = edges.indexOf(e);
 		edges.remove(a);
 	}
+	public String toString() {
+		return data.toString();
+	}
 }

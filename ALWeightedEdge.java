@@ -12,4 +12,8 @@ public class ALWeightedEdge extends ALEdge implements WeightedEdge {
 		weight = c;
 		return temp;
 	}
+	public String toString() {
+		String s = getSource().getElement() + " <--- " + getWeight() + " ---> " + getDestination().getElement();
+		return s;
+	}
 }

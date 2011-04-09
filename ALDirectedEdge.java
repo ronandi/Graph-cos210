@@ -15,4 +15,9 @@ public class ALDirectedEdge extends ALEdge implements DirectedEdge {
 		setSource(s);
 		setDestination(d);
 	}
+	public String toString() {
+		String s = getSource().getElement() + " ------> " + getDestination().getElement();
+
+		return s;
+	}
 }

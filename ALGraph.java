@@ -107,7 +107,7 @@ public class ALGraph<T1> implements Graph<T1> {
 	public void insertDirectedWeightedEdge (Vertex<T1> V, Vertex<T1> W, double Cost){
 		int a = vertexList.indexOf(V);
 		int b = vertexList.indexOf(W);
-		Edge myEdge = vendWeightedEdge(V, W, Cost);
+		Edge myEdge = vendDirectedWeightedEdge(V, W, Cost);
 		vertexList.get(a).addEdge(myEdge);
 		vertexList.get(b).addEdge(myEdge);
 	}
@@ -118,19 +118,26 @@ public class ALGraph<T1> implements Graph<T1> {
 		vertexList.get(a).removeEdge(e);
 	}
 	public void removeVertex(Vertex<T1> v) {
-		ArrayList<Vertex<T1>> toDeleteList = new ArrayList<Vertex<T1>>();
 		int a = vertexList.indexOf(v);
-		Iterator<Edge> iter = v.incidentEdges().iterator();
-		while (iter.hasNext()) {
-			toDeleteList.add(v.opposite(iter.next()));
-		}
+		List<Vertex<T1>> toDeleteList = vertexList.get(a).adjacentVertices();
 		Iterator<Vertex<T1>> delIter = toDeleteList.iterator();
 		while (delIter.hasNext()) {
 			Vertex<T1> myVertex = delIter.next();
+			System.out.println(myVertex);
+			
 			Iterator<Edge> delEdge = myVertex.incidentEdges().iterator();
-			Edge myEdge = delEdge.next();
-			if (myEdge.getSource() == v || myEdge.getDestination() == v) {
-				myVertex.removeEdge(myEdge);
+			try {
+				while (delEdge.hasNext()) {
+					Edge myEdge = delEdge.next();
+					System.out.println("	" + myEdge);
+					if (myEdge.getSource() == v || myEdge.getDestination() == v) {
+						System.out.println("deleting: " + myEdge);
+						myVertex.removeEdge(myEdge);
+					}
+				} 
+			}
+			catch (ConcurrentModificationException concEx) {
+				delEdge = myVertex.incidentEdges().iterator();
 			}
 		}
 		vertexList.remove(a);
@@ -166,6 +173,17 @@ public class ALGraph<T1> implements Graph<T1> {
 		while (iter.hasNext()) {
 			Edge myEdge = iter.next();
 			if (myEdge instanceof DirectedEdge) {
+				directedList.add(myEdge);
+			}
+		}	
+		return directedList;
+	}
+	public List<? extends Edge> directedWeightedEdges() {
+		ArrayList<Edge> directedList = new ArrayList();
+		Iterator<? extends Edge> iter = edges().iterator();
+		while (iter.hasNext()) {
+			Edge myEdge = iter.next();
+			if (myEdge instanceof WeightedEdge && myEdge instanceof DirectedEdge) {
 				directedList.add(myEdge);
 			}
 		}	
