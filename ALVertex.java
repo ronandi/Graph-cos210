@@ -21,7 +21,7 @@ public class ALVertex<T1> implements Vertex<T1> {
 		Iterator<Edge> iterator = edges.iterator();
 		while (iterator.hasNext()) {
 			Edge e = iterator.next();
-			System.out.println(e instanceof DirectedEdge);
+			//System.out.println(e instanceof DirectedEdge);
 			if (!(e instanceof DirectedEdge)) {
 				count += 2;
 			} else {
@@ -39,32 +39,34 @@ public class ALVertex<T1> implements Vertex<T1> {
 	public List<Edge> incidentEdges() {
 		return edges;
 	}
-    public List<Edge> inIncidentEdges() {
+	public List<Edge> inIncidentEdges() {
 		ArrayList<Edge> incidentList = new ArrayList<Edge>();
 		Iterator<Edge> iterator = edges.iterator();
 		while (iterator.hasNext()) {
 			Edge e = iterator.next();
 			if (e instanceof DirectedEdge) {
-				DirectedEdge de = (DirectedEdge)e;
-				if (de.getDestination() == this) {
-					incidentList.add(de);
+				if (e.getDestination() == this) {
+					incidentList.add(e);
 				}	
+			} else if (e.getSource() == this || e.getDestination() == this){
+				incidentList.add(e);
 			}
 		}
 		return incidentList;
 	}
-    public List<Edge> outIncidentEdges() {
+	public List<Edge> outIncidentEdges() {
 		ArrayList<Edge> incidentList = new ArrayList<Edge>();
 		Iterator<Edge> iterator = edges.iterator();
 		while (iterator.hasNext()) {
 			Edge e = iterator.next();
-				if (e instanceof DirectedEdge) {
-					DirectedEdge de = (DirectedEdge)e;
-					if (de.getSource() == this) {
-						incidentList.add(de);
-					}	
-				}
+			if (e instanceof DirectedEdge) {
+				if (e.getSource() == this) {
+					incidentList.add(e);
+				}	
+			} else if (e.getSource() == this || e.getDestination() == this){
+				incidentList.add(e);
 			}
+		}
 		return incidentList;
 	}
     public Vertex<T1> opposite(Edge e) {
