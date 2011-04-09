@@ -40,8 +40,8 @@ public class ALGraph<T1> implements Graph<T1> {
 	public List<Vertex<T1>> vertices() {
 		return vertexList;
 	}
-	public void swap(Vertex v, Vertex w){
-		w.replaceElement(v.replaceElement(w));
+	public void swap(Vertex<T1> v, Vertex<T1> w){
+		w.replaceElement(v.replaceElement(w.getElement()));
 	}
 	public Vertex[] endVertices(Edge e) {
 		Vertex[] ends = new Vertex[2];

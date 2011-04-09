@@ -13,8 +13,8 @@ public interface Vertex<T1> {
     public List<Vertex<T1>> adjacentVertices();
     public List<Vertex<T1>> inAdjacentVertices();
     public List<Vertex<T1>> outAdjacentVertices();
-    public boolean isAdjacent(Vertex v);
-    public void addEdge(Vertex v);
+    public boolean isAdjacent(Vertex<T1> v);
+    public void addEdge(Vertex<T1> v);
     public void addEdge(Edge e);
     public void removeEdge(Edge e);
 }

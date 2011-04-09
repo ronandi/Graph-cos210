@@ -21,7 +21,7 @@ public class ALVertex<T1> implements Vertex<T1> {
 		Iterator<Edge> iterator = edges.iterator();
 		while (iterator.hasNext()) {
 			Edge e = iterator.next();
-			if (e instanceof DirectedEdge) {
+			if (!(e instanceof DirectedEdge)) {
 				count += 2;
 			} else {
 				count++;
@@ -67,7 +67,7 @@ public class ALVertex<T1> implements Vertex<T1> {
 		return incidentList;
 	}
     public Vertex<T1> opposite(Edge e) {
-		if (e.getSource() != this) {
+		if (e.getSource() == this) {
 			return e.getDestination();
 		} else {
 			return e.getSource();
@@ -99,10 +99,10 @@ public class ALVertex<T1> implements Vertex<T1> {
 		}
 		return outList;
 	}
-    public boolean isAdjacent(Vertex v) {
+    public boolean isAdjacent(Vertex<T1> v) {
 		return adjacentVertices().contains(v);
 	}
-    public void addEdge(Vertex v) {
+    public void addEdge(Vertex<T1> v) {
 		edges.add(new ALEdge(this, v));	
 	}
 	public void addEdge(Edge e) {
