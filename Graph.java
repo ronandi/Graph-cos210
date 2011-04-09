@@ -12,7 +12,7 @@ public interface Graph<T1> {
     public List<? extends Edge> directedEdges();
     public List<? extends Edge> undirectedEdges();
 	public List<? extends Edge> weightedEdges();
-    public void insertVertex(T1 o);
+    public void insertVertex(Vertex<T1> myVertex);
     public void removeVertex(Vertex<T1> v);
     public void removeEdge(Edge e);
 	public Vertex[] endVertices(Edge e); // proper format?

@@ -2,16 +2,20 @@ import java.util.*;
 public class ALGraph<T1> implements Graph<T1> {
 	private int size; 
 	private ArrayList<Vertex<T1>> vertexList;
-	private ArrayList<Edge> edgeList;
 	public ALGraph() {
 		size = 0;
-		vertexList = new ArrayList<Vertex<T1>>();	
+		vertexList = new ArrayList<Vertex<T1>>();
 	}
 	public int size() {
+		this.size = this.vertexList.size() + this.edges().size();
 		return this.size;
 	}
 	public boolean isEmpty() {
-		return size == 0;
+		if (this.size() == 0) {
+		return true;
+		} else {
+		return false;
+		}
 	}
 	public boolean isDirected(Edge e) {
 		return e instanceof DirectedEdge;
@@ -120,21 +124,54 @@ public class ALGraph<T1> implements Graph<T1> {
 		}
 		vertexList.remove(a);
 	}
-	public void insertVertex(T1 o){
-		Vertex<T1> myVertex = vendVertex(o);
+	public void insertVertex(Vertex<T1> myVertex){
 		vertexList.add(myVertex);
 	}
 	public List<? extends Edge> weightedEdges() {
-		return edgeList;
+		ArrayList<Edge> directedList = new ArrayList();
+		Iterator<? extends Edge> iter = edges().iterator();
+		while (iter.hasNext()) {
+			Edge myEdge = iter.next();
+			if (myEdge instanceof WeightedEdge) {
+				directedList.add(myEdge);
+			}
+		}	
+		return directedList;
 	}
 	public List<? extends Edge> undirectedEdges() {
-	return edgeList;
+		ArrayList<Edge> directedList = new ArrayList();
+		Iterator<? extends Edge> iter = edges().iterator();
+		while (iter.hasNext()) {
+			Edge myEdge = iter.next();
+			if (!(myEdge instanceof DirectedEdge)) {
+				directedList.add(myEdge);
+			}
+		}	
+		return directedList;
 	}
 	public List<? extends Edge> directedEdges() {
-	return edgeList;
+		ArrayList<Edge> directedList = new ArrayList();
+		Iterator<? extends Edge> iter = edges().iterator();
+		while (iter.hasNext()) {
+			Edge myEdge = iter.next();
+			if (myEdge instanceof DirectedEdge) {
+				directedList.add(myEdge);
+			}
+		}	
+		return directedList;
 	}
 	public List<? extends Edge> edges() {
-		
-		return edgeList;
+		ArrayList<Edge> myEdgeList = new ArrayList<Edge>();
+		Iterator<Vertex<T1>> vertexIterator = vertexList.iterator();
+		while (vertexIterator.hasNext()) {
+			Iterator<Edge> edgeIter = vertexIterator.next().incidentEdges().iterator();
+			while (edgeIter.hasNext()) {
+				Edge myEdge = edgeIter.next();
+				if (!myEdgeList.contains(myEdge)) {
+					myEdgeList.add(myEdge);
+				}
+			}
+		}
+		return myEdgeList;
 	}
 }
