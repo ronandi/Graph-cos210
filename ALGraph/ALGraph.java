@@ -118,6 +118,21 @@ public class ALGraph<T1> implements Graph<T1> {
 		a = vertexList.indexOf(e.getDestination());
 		vertexList.get(a).removeEdge(e);
 	}
+	public void removeEdge (Vertex<T1> v, Vertex<T1> w) {
+		List<Edge> edgeList = v.incidentEdges();
+		Iterator<Edge> edgeIter = edgeList.iterator();
+		try {
+			while (edgeIter.hasNext()) {
+				Edge e = edgeIter.next();
+				if ((e.getSource() == v && e.getDestination() == w) || (e.getSource() == w && e.getDestination() == v) ) {
+					v.removeEdge(e);
+					w.removeEdge(e);
+				}
+			}
+		} catch (ConcurrentModificationException concEx) {
+                edgeIter = edgeList.iterator();
+        }
+	}
 	public void removeVertex(Vertex<T1> v) {
 		int a = vertexList.indexOf(v);
 		List<Vertex<T1>> toDeleteList = vertexList.get(a).adjacentVertices();
