@@ -112,10 +112,10 @@ public class AMGraph<T1> implements Graph<T1> {
                 matrix.get(x).add(null);
             }
         }
-        System.out.println(matrix.size());
+        /*System.out.println(matrix.size());
         for (int x = 0; x < matrix.size(); x++){
             System.out.println(matrix.get(x).size());
-        }
+        }*/
     }
     public void removeVertex(Vertex<T1> v) {
       int myKey = vertexList.indexOf(v);
