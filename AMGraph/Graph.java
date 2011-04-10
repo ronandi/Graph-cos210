@@ -16,6 +16,7 @@ public interface Graph<T1> {
     public void insertVertex(Vertex<T1> myVertex);
     public void removeVertex(Vertex<T1> v);
     public void removeEdge(Edge e);
+    public void removeEdge (Vertex<T1> v, Vertex<T1> w);
     public Vertex[] endVertices(Edge e); // proper format?
     public void makeUndirected(Edge e); // maybe? can do this with what we already have
     public void insertEdge (Vertex<T1> V, Vertex<T1> W);

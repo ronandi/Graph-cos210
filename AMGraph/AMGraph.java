@@ -145,8 +145,7 @@ public class AMGraph<T1> implements Graph<T1> {
                         myVertex.removeEdge(myEdge);
                     }
                 } 
-            }
-            catch (ConcurrentModificationException concEx) {
+            } catch (ConcurrentModificationException concEx) {
                 delEdge = myVertex.incidentEdges().iterator();
             }
         }
@@ -165,6 +164,25 @@ public class AMGraph<T1> implements Graph<T1> {
             matrix.get(V.getKey()).set(W.getKey(), null); 
             matrix.get(W.getKey()).set(V.getKey(), null);
         }
+        int a = vertexList.indexOf(e.getSource());
+        vertexList.get(a).removeEdge(e);
+        a = vertexList.indexOf(e.getDestination());
+        vertexList.get(a).removeEdge(e);
+    }
+    public void removeEdge (Vertex<T1> v, Vertex<T1> w) {
+        AMVertex<T1> V = (AMVertex<T1>) v;
+        AMVertex<T1> W = (AMVertex<T1>) w;
+        Edge e = matrix.get(V.getKey()).get(W.getKey());
+        if (e instanceof DirectedEdge) {
+            matrix.get(V.getKey()).set(W.getKey(), null); 
+        } else {
+            matrix.get(V.getKey()).set(W.getKey(), null); 
+            matrix.get(W.getKey()).set(V.getKey(), null);
+        }
+        int a = vertexList.indexOf(e.getSource());
+        vertexList.get(a).removeEdge(e);
+        a = vertexList.indexOf(e.getDestination());
+        vertexList.get(a).removeEdge(e);
     }
     public Vertex[] endVertices(Edge e) {
         Vertex[] ends = new Vertex[2];
