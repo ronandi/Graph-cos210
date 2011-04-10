@@ -118,7 +118,39 @@ public class AMGraph<T1> implements Graph<T1> {
         }
     }
     public void removeVertex(Vertex<T1> v) {
-      //  key--;
+      int myKey = vertexList.indexOf(v);
+      for (int x = 0; x < vertexList.size(); x++) {
+          if (((AMVertex<T1>)vertexList.get(x)).getKey() > myKey) {
+              ((AMVertex<T1>)vertexList.get(x)).setKey(((AMVertex<T1>)vertexList.get(x)).getKey() - 1);
+          }
+      }
+      for (int x = 0; x < matrix.size(); x++) {
+            matrix.get(x).remove(myKey);
+      }
+      matrix.remove(myKey);
+      key--;
+      List<Vertex<T1>> toDeleteList = vertexList.get(myKey).adjacentVertices();
+        Iterator<Vertex<T1>> delIter = toDeleteList.iterator();
+        while (delIter.hasNext()) {
+            Vertex<T1> myVertex = delIter.next();
+            System.out.println(myVertex);
+            
+            Iterator<Edge> delEdge = myVertex.incidentEdges().iterator();
+            try {
+                while (delEdge.hasNext()) {
+                    Edge myEdge = delEdge.next();
+                    System.out.println("    " + myEdge);
+                    if (myEdge.getSource() == v || myEdge.getDestination() == v) {
+                        System.out.println("deleting: " + myEdge);
+                        myVertex.removeEdge(myEdge);
+                    }
+                } 
+            }
+            catch (ConcurrentModificationException concEx) {
+                delEdge = myVertex.incidentEdges().iterator();
+            }
+        }
+        vertexList.remove(myKey);
     }
     public void removeEdge(Edge e) {
         AMVertex<T1> V = (AMVertex<T1>) e.getSource();
