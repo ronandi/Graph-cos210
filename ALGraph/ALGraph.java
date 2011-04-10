@@ -50,9 +50,10 @@ public class ALGraph<T1> implements Graph<T1> {
 		return ends;
 	}
 	public void makeUndirected(Edge e){	
-		Vertex source = null;
-		Vertex destination = null;
+		Vertex source = e.getSource();
+		Vertex destination = e.getDestination();
 		double cost = 0;
+		removeEdge(e);
 		if (isWeighted(e)) {
 			WeightedEdge we = (WeightedEdge) e;
 			cost = we.getWeight();
