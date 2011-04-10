@@ -173,7 +173,16 @@ public class AMGraph<T1> implements Graph<T1> {
         return ends;
     }
     public void makeUndirected(Edge e) {
-        
+        Vertex source = e.getSource();
+        Vertex destination = e.getDestination();
+        double cost = 0;
+        if (isWeighted(e)) {
+            WeightedEdge we = (WeightedEdge) e;
+            cost = we.getWeight();
+            insertWeightedEdge(source, destination, cost);  
+        } else {
+            insertEdge(source, destination);
+        }
     }
     public void insertEdge (Vertex<T1> v, Vertex<T1> w) {
         AMVertex<T1> V = (AMVertex<T1>) v;
