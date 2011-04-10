@@ -47,7 +47,7 @@ public class AMGraph<T1> implements Graph<T1> {
         ArrayList<Edge> myEdgeList = new ArrayList<Edge>(); 
         for (int x = 0; x < matrix.size(); x++) {
             for (int y = 0; y < matrix.get(x).size(); y++) {
-                if (matrix.get(x).get(y) instanceof Edge) {
+                if (matrix.get(x).get(y) instanceof Edge && (!myEdgeList.contains(matrix.get(x).get(y)))) {
                     System.out.println(matrix.get(x).get(y));
                     myEdgeList.add(matrix.get(x).get(y));
                     System.out.println("found at " + x + " " + y);
