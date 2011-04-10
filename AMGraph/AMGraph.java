@@ -48,9 +48,9 @@ public class AMGraph<T1> implements Graph<T1> {
         for (int x = 0; x < matrix.size(); x++) {
             for (int y = 0; y < matrix.get(x).size(); y++) {
                 if (matrix.get(x).get(y) instanceof Edge && (!myEdgeList.contains(matrix.get(x).get(y)))) {
-                    System.out.println(matrix.get(x).get(y));
+                    //System.out.println(matrix.get(x).get(y));
                     myEdgeList.add(matrix.get(x).get(y));
-                    System.out.println("found at " + x + " " + y);
+                    //System.out.println("found at " + x + " " + y);
                 }
             }
         }
@@ -104,7 +104,7 @@ public class AMGraph<T1> implements Graph<T1> {
         AMVertex<T1> myVerte = (AMVertex<T1>) myVertex;
         myVerte.setKey(key);
         key++;
-        System.out.println("Inserting " + myVerte + " key: " + myVerte.getKey());
+        //System.out.println("Inserting " + myVerte + " key: " + myVerte.getKey());
         vertexList.add(myVerte.getKey(), myVerte);
         matrix.add(new ArrayList<Edge>());
         for (int x = 0; x < matrix.size(); x++) {
@@ -139,9 +139,9 @@ public class AMGraph<T1> implements Graph<T1> {
             try {
                 while (delEdge.hasNext()) {
                     Edge myEdge = delEdge.next();
-                    System.out.println("    " + myEdge);
+               //     System.out.println("    " + myEdge);
                     if (myEdge.getSource() == v || myEdge.getDestination() == v) {
-                        System.out.println("deleting: " + myEdge);
+                    //    System.out.println("deleting: " + myEdge);
                         myVertex.removeEdge(myEdge);
                     }
                 } 
@@ -155,10 +155,10 @@ public class AMGraph<T1> implements Graph<T1> {
     public void removeEdge(Edge e) {
         AMVertex<T1> V = (AMVertex<T1>) e.getSource();
         AMVertex<T1> W = (AMVertex<T1>) e.getDestination();
-        System.out.println("Deleting: " + V.getKey() + ", " + W.getKey());
-        System.out.println("Deleting: " + W.getKey() + ", " + V.getKey());
-        System.out.println("Is this null? " + matrix.get(V.getKey()).get(W.getKey()) == null);
-        System.out.println("Is this null? " + matrix.get(W.getKey()).get(V.getKey()) == null);
+        //System.out.println("Deleting: " + V.getKey() + ", " + W.getKey());
+       // System.out.println("Deleting: " + W.getKey() + ", " + V.getKey());
+        //System.out.println("Is this null? " + matrix.get(V.getKey()).get(W.getKey()) == null);
+        //System.out.println("Is this null? " + matrix.get(W.getKey()).get(V.getKey()) == null);
         if (e instanceof DirectedEdge) {
             matrix.get(V.getKey()).set(W.getKey(), null); 
         } else {
@@ -192,11 +192,11 @@ public class AMGraph<T1> implements Graph<T1> {
         Edge myEdge = vendEdge(V, W);
         vertexList.get(a).addEdge(myEdge);
         vertexList.get(b).addEdge(myEdge);
-        System.out.println("V: " + V.getKey());
-        System.out.println("W: " + W.getKey());
-        System.out.println("Inserting edge at: " + V.getKey() + ", " + W.getKey());
+       // System.out.println("V: " + V.getKey());
+       // System.out.println("W: " + W.getKey());
+       // System.out.println("Inserting edge at: " + V.getKey() + ", " + W.getKey());
         matrix.get(V.getKey()).set(W.getKey(), myEdge);
-        System.out.println("Inserting edge at: " + W.getKey() + ", " + V.getKey());
+        //System.out.println("Inserting edge at: " + W.getKey() + ", " + V.getKey());
         matrix.get(W.getKey()).set(V.getKey(), myEdge);
     }
     public void insertDirectedEdge (Vertex<T1> v, Vertex<T1> w) {
@@ -207,8 +207,8 @@ public class AMGraph<T1> implements Graph<T1> {
         Edge myEdge = vendDirectedEdge(V, W);
         vertexList.get(a).addEdge(myEdge);
         vertexList.get(b).addEdge(myEdge);
-        System.out.println("V: " + V.getKey());
-        System.out.println("W: " + W.getKey());
+        //System.out.println("V: " + V.getKey());
+        //System.out.println("W: " + W.getKey());
         matrix.get(V.getKey()).set(W.getKey(), myEdge);
     }
     public void insertWeightedEdge (Vertex<T1> v, Vertex<T1> w, double Cost) {
@@ -219,8 +219,8 @@ public class AMGraph<T1> implements Graph<T1> {
         Edge myEdge = vendWeightedEdge(V, W, Cost);
         vertexList.get(a).addEdge(myEdge);
         vertexList.get(b).addEdge(myEdge);
-        System.out.println("V: " + V.getKey());
-        System.out.println("W: " + W.getKey());
+        //System.out.println("V: " + V.getKey());
+        //System.out.println("W: " + W.getKey());
         matrix.get(V.getKey()).set(W.getKey(), myEdge);
         matrix.get(W.getKey()).set(V.getKey(), myEdge);
     }
@@ -232,8 +232,8 @@ public class AMGraph<T1> implements Graph<T1> {
         Edge myEdge = vendDirectedWeightedEdge(V, W, Cost);
         vertexList.get(a).addEdge(myEdge);
         vertexList.get(b).addEdge(myEdge);
-        System.out.println("V: " + V.getKey());
-        System.out.println("W: " + W.getKey());
+        //System.out.println("V: " + V.getKey());
+        //System.out.println("W: " + W.getKey());
         matrix.get(V.getKey()).set(W.getKey(), myEdge);
     }
     public void swap(Vertex<T1> v, Vertex<T1> w) {

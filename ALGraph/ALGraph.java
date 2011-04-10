@@ -132,7 +132,7 @@ public class ALGraph<T1> implements Graph<T1> {
 					Edge myEdge = delEdge.next();
 					System.out.println("	" + myEdge);
 					if (myEdge.getSource() == v || myEdge.getDestination() == v) {
-						System.out.println("deleting: " + myEdge);
+						//System.out.println("deleting: " + myEdge);
 						myVertex.removeEdge(myEdge);
 					}
 				} 
