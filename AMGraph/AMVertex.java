@@ -3,8 +3,12 @@ import java.util.*;
 public class AMVertex<T1> implements Vertex<T1> {
 	private T1 data;
 	private ArrayList<Edge> edges; //This could be a tree, or anything really. 
-	private int key = 0;
-	
+	private int key;
+	public AMVertex (T1 data) {
+		//this.key = Key;
+		this.data = data;
+		edges = new ArrayList<Edge>();
+	}
 	public AMVertex (T1 data, int Key) {
 		this.key = Key;
 		this.data = data;

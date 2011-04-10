@@ -44,22 +44,67 @@ public class AMGraph<T1> implements Graph<T1> {
         return vertexList;
     }
     public List<? extends Edge> edges() {
-        return null;
+        ArrayList<Edge> myEdgeList = new ArrayList<Edge>(); 
+        for (int x = 0; x < matrix.size(); x++) {
+            for (int y = 0; y < matrix.get(x).size(); y++) {
+                if (matrix.get(x).get(y) instanceof Edge) {
+                    System.out.println(matrix.get(x).get(y));
+                    myEdgeList.add(matrix.get(x).get(y));
+                    System.out.println("found at " + x + " " + y);
+                }
+            }
+        }
+        return myEdgeList;
     }
     public List<? extends Edge> directedEdges() {
-        return null;
+        ArrayList<Edge> directedList = new ArrayList();
+        Iterator<? extends Edge> iter = edges().iterator();
+        while (iter.hasNext()) {
+            Edge myEdge = iter.next();
+            if (myEdge instanceof DirectedEdge) {
+                directedList.add(myEdge);
+            }
+        }   
+        return directedList;
     }
     public List<? extends Edge> undirectedEdges() {
-        return null;
+        ArrayList<Edge> directedList = new ArrayList();
+        Iterator<? extends Edge> iter = edges().iterator();
+        while (iter.hasNext()) {
+            Edge myEdge = iter.next();
+            if (!(myEdge instanceof DirectedEdge)) {
+                directedList.add(myEdge);
+            }
+        }   
+        return directedList;
     }
     public List<? extends Edge> weightedEdges() {
-        return null;
+        ArrayList<Edge> directedList = new ArrayList();
+        Iterator<? extends Edge> iter = edges().iterator();
+        while (iter.hasNext()) {
+            Edge myEdge = iter.next();
+            if (myEdge instanceof WeightedEdge) {
+                directedList.add(myEdge);
+            }
+        }   
+        return directedList;
     }
     public List<? extends Edge> directedWeightedEdges() {
-        return null;
+        ArrayList<Edge> directedList = new ArrayList();
+        Iterator<? extends Edge> iter = edges().iterator();
+        while (iter.hasNext()) {
+            Edge myEdge = iter.next();
+            if (myEdge instanceof WeightedEdge && myEdge instanceof DirectedEdge) {
+                directedList.add(myEdge);
+            }
+        }   
+        return directedList;
     }
     public void insertVertex(Vertex<T1> myVertex) {
         AMVertex<T1> myVerte = (AMVertex<T1>) myVertex;
+        myVerte.setKey(key);
+        key++;
+        System.out.println("Inserting " + myVerte + " key: " + myVerte.getKey());
         vertexList.add(myVerte.getKey(), myVerte);
         matrix.add(new ArrayList<Edge>());
         for (int x = 0; x < matrix.size(); x++) {
@@ -73,10 +118,21 @@ public class AMGraph<T1> implements Graph<T1> {
         }
     }
     public void removeVertex(Vertex<T1> v) {
-        key--;
+      //  key--;
     }
     public void removeEdge(Edge e) {
-        
+        AMVertex<T1> V = (AMVertex<T1>) e.getSource();
+        AMVertex<T1> W = (AMVertex<T1>) e.getDestination();
+        System.out.println("Deleting: " + V.getKey() + ", " + W.getKey());
+        System.out.println("Deleting: " + W.getKey() + ", " + V.getKey());
+        System.out.println("Is this null? " + matrix.get(V.getKey()).get(W.getKey()) == null);
+        System.out.println("Is this null? " + matrix.get(W.getKey()).get(V.getKey()) == null);
+        if (e instanceof DirectedEdge) {
+            matrix.get(V.getKey()).set(W.getKey(), null); 
+        } else {
+            matrix.get(V.getKey()).set(W.getKey(), null); 
+            matrix.get(W.getKey()).set(V.getKey(), null);
+        }
     }
     public Vertex[] endVertices(Edge e) {
         Vertex[] ends = new Vertex[2];
@@ -97,10 +153,13 @@ public class AMGraph<T1> implements Graph<T1> {
         vertexList.get(b).addEdge(myEdge);
         System.out.println("V: " + V.getKey());
         System.out.println("W: " + W.getKey());
-        matrix.get(V.getKey()).add(W.getKey(), myEdge);
+        System.out.println("Inserting edge at: " + V.getKey() + ", " + W.getKey());
+        matrix.get(V.getKey()).set(W.getKey(), myEdge);
+        System.out.println("Inserting edge at: " + W.getKey() + ", " + V.getKey());
+        matrix.get(W.getKey()).set(V.getKey(), myEdge);
     }
     public void insertDirectedEdge (Vertex<T1> v, Vertex<T1> w) {
-          AMVertex<T1> V = (AMVertex<T1>) v;
+        AMVertex<T1> V = (AMVertex<T1>) v;
         AMVertex<T1> W = (AMVertex<T1>) w;
         int a = vertexList.indexOf(V);
         int b = vertexList.indexOf(W);
@@ -109,7 +168,7 @@ public class AMGraph<T1> implements Graph<T1> {
         vertexList.get(b).addEdge(myEdge);
         System.out.println("V: " + V.getKey());
         System.out.println("W: " + W.getKey());
-        matrix.get(V.getKey()).add(W.getKey(), myEdge);
+        matrix.get(V.getKey()).set(W.getKey(), myEdge);
     }
     public void insertWeightedEdge (Vertex<T1> v, Vertex<T1> w, double Cost) {
         AMVertex<T1> V = (AMVertex<T1>) v;
@@ -121,7 +180,8 @@ public class AMGraph<T1> implements Graph<T1> {
         vertexList.get(b).addEdge(myEdge);
         System.out.println("V: " + V.getKey());
         System.out.println("W: " + W.getKey());
-        matrix.get(V.getKey()).add(W.getKey(), myEdge);
+        matrix.get(V.getKey()).set(W.getKey(), myEdge);
+        matrix.get(W.getKey()).set(V.getKey(), myEdge);
     }
     public void insertDirectedWeightedEdge (Vertex<T1> v, Vertex<T1> w, double Cost) {
         AMVertex<T1> V = (AMVertex<T1>) v;
@@ -133,7 +193,7 @@ public class AMGraph<T1> implements Graph<T1> {
         vertexList.get(b).addEdge(myEdge);
         System.out.println("V: " + V.getKey());
         System.out.println("W: " + W.getKey());
-        matrix.get(V.getKey()).add(W.getKey(), myEdge);
+        matrix.get(V.getKey()).set(W.getKey(), myEdge);
     }
     public void swap(Vertex<T1> v, Vertex<T1> w) {
         w.replaceElement(v.replaceElement(w.getElement()));
@@ -158,8 +218,9 @@ public class AMGraph<T1> implements Graph<T1> {
         return myEdge;
     }
     public Vertex<T1> vendVertex(T1 o) {
-        AMVertex<T1> myVertex = new AMVertex<T1>(o, key);
-        key++;
+        //AMVertex<T1> myVertex = new AMVertex<T1>(o, key);
+        //key++;
+        AMVertex<T1> myVertex = new AMVertex<T1>(o);
         return myVertex;
     }
 }

@@ -19,7 +19,7 @@ public class AMEdge implements Edge {
 		source = s;
 	}
 	public String toString() {
-		String s = source.getElement() + "------" + destination.getElement();
+		String s = source.getElement() + "<------>" + destination.getElement();
 		return s;
 	}
 }

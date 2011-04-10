@@ -9,16 +9,39 @@ public class GraphTest {
 		Vertex<String> denver = g.vendVertex("Denver");
 		
 		g.insertVertex(dallas);
-		g.insertVertex(chicago);
 		g.insertVertex(montana);
-		g.insertVertex(newjersey);
 		g.insertVertex(denver);
-		g.insertDirectedEdge(dallas, montana);
-		g.insertWeightedEdge(montana, denver, 50);
-		g.insertEdge(dallas, chicago);
-		g.insertEdge(chicago, newjersey);
-		g.insertDirectedEdge(newjersey, denver);
-		g.insertWeightedEdge(dallas, denver, 50);
-		g.insertDirectedWeightedEdge(dallas, newjersey, 50);
+		g.insertVertex(newjersey);
+		g.insertEdge(dallas, denver);
+		g.insertDirectedEdge(montana, newjersey);
+		g.insertEdge(montana, denver);
+		g.insertWeightedEdge(dallas, montana, 50);
+		
+		System.out.println("Dallas: " + ((AMVertex<String>)dallas).getKey());
+		//System.out.println("Chicago: " + ((AMVertex<String>)chicago).getKey());
+		System.out.println("Montana: " + ((AMVertex<String>)montana).getKey());
+		System.out.println("New Jersey: " + ((AMVertex<String>)newjersey).getKey());
+		System.out.println("Denver: " + ((AMVertex<String>)denver).getKey());
+
+		
+		System.out.println(g.edges());
+		//System.out.println();
+		//System.out.println(g.directedEdges());
+		//System.out.println();
+		//System.out.println(g.weightedEdges());
+		//System.out.println();
+		//System.out.println(g.directedWeightedEdges());
+		System.out.println("Dallas: " + ((AMVertex<String>)dallas).getKey());
+		//System.out.println("Chicago: " + ((AMVertex<String>)chicago).getKey());
+		System.out.println("Montana: " + ((AMVertex<String>)montana).getKey());
+		System.out.println("New Jersey: " + ((AMVertex<String>)newjersey).getKey());
+		System.out.println("Denver: " + ((AMVertex<String>)denver).getKey());
+		System.out.println();
+		Iterator<? extends Edge> edgeIterator = g.edges().iterator();
+		while (edgeIterator.hasNext()) {
+			g.removeEdge(edgeIterator.next());
+		}
+		System.out.println("Edges: " + g.edges());
+		//System.out.println(g.vertices());
 	}
 }
